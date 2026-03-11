@@ -23,16 +23,13 @@ function Register() {
     }
 
     try {
-      const response = await fetch(
-        "https://cab-w2ie.onrender.com/api/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        }
-      );
+      const response = await fetch("http://localhost:8080/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
 
       if (response.ok) {
         alert("Registration Successful ✅");
@@ -41,7 +38,7 @@ function Register() {
         alert("Registration Failed ❌");
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.error(error);
       alert("Server Error");
     }
   };
