@@ -14,7 +14,7 @@ function Register() {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!data.username || !data.email || !data.password) {
@@ -22,8 +22,25 @@ function Register() {
       return;
     }
 
-    alert("Registration Successful ✅");
-    navigate("/");
+    try {
+      const response = await fetch("http://localhost:8080/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        alert("Registration Successful ✅");
+        navigate("/");
+      } else {
+        alert("Registration Failed ❌");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Server Error");
+    }
   };
 
   return (
